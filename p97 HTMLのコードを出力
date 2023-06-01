@@ -1,0 +1,49 @@
+package com.example.demo;
+
+import javax.print.attribute.standard.Media;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.Banner.Mode;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@RestController
+@SpringBootApplication // これをつけることで、スプリングブートで起動するアプリだということ
+public class DemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+
+		// バナーを表示させないようにする
+		SpringApplication app = new SpringApplication(DemoApplication.class);
+		app.setBannerMode(Mode.OFF);
+		app.run(args);
+
+	}
+
+	@RequestMapping("/")
+	public String index(
+		HttpServletRequest  request,
+		HttpServletResponse response){
+			response.setContentType(MediaType.TEXT_HTML_VALUE);
+			String content =
+			 """
+				<html>
+				<head>
+				<title>Sample app<title>
+				</head>
+				<body>
+				<h1>konnnitiwa</h1>
+				<p>This is sample app page!</p>
+				</html>
+				""";
+				return content;
+		}
+	
+
+	}
